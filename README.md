@@ -1,6 +1,6 @@
 # 🔊 Morse Player
 
-![Platform](https://img.shields.io/badge/platform-macOS-26.0.1-blue)
+![macOS](https://img.shields.io/badge/macOS-26.0.1+-blue?logo=apple&logoColor=white)
 ![Language](https://img.shields.io/badge/Swift-6.2-orange)
 ![Framework](https://img.shields.io/badge/SwiftUI-%E2%9D%A4%EF%B8%8F-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -30,12 +30,12 @@
 
 ## ⚙️ Structure du projet
 
-MorsePlayer/
-├── MorseTrainerApp.swift // Point d’entrée de l’app
-├── ContentView.swift // Interface principale
-├── MorsePlayer.swift // Générateur audio en temps réel
-├── MorseCode.swift // Table de correspondances Morse
-└── SpeechRecognizer.swift // Gestion de la dictée vocale
+MorsePlayer/  
+├── MorseTrainerApp.swift // Point d’entrée de l’app  
+├── ContentView.swift // Interface principale  
+├── MorsePlayer.swift // Générateur audio en temps réel  
+├── MorseCode.swift // Table de correspondances Morse  
+└── SpeechRecognizer.swift // Gestion de la dictée vocale  
 
 
 ---
