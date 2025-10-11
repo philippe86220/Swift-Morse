@@ -109,5 +109,5 @@ Ce projet est publié sous licence MIT — libre d’utilisation et de modificat
 
 ---
 
-💬 Remerciements
+💬 Remerciements   
 Projet développé avec l’assistance de ChatGPT (GPT-5), dans le cadre d’un apprentissage de SwiftUI et d’AVFoundation.
