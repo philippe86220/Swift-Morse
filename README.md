@@ -65,7 +65,7 @@ MorsePlayer/
 ## 🖼️ Aperçu
 
 ### vue de l'application :
-![Vue](Assets/capture.png)
+![Vue](Assets/Capture.png)
 
 ---
 
