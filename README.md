@@ -11,7 +11,7 @@
 - ✍️ Écrire un texte et le **jouer en code Morse** sonore ;
 - 🎙️ Utiliser la **reconnaissance vocale** pour générer automatiquement le texte à jouer ;
 - 🎚️ **Régler la vitesse de lecture** (0.06 à 0.09 s par point, soit environ 13 à 20 WPM) avec un slider intuitif ;
-- 💡 affichager un visuel clignotant synchronisé au son pour représenter les points et les traits en temps réel ;
+- 💡 afficher un visuel clignotant synchronisé au son pour représenter les points et les traits en temps réel ;
 - 🔉 **Écouter le son de chaque caractère Morse** individuellement ;
 - 💡 Visualiser le texte et la progression caractère par caractère.
 
