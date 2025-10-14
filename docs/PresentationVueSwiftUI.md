@@ -263,7 +263,8 @@ struct EcranStandard: View {
 ### B. Barre de progression
 ```swift
 struct ProgressBar: View {
-    var progress: CGFloat // 0...1
+    
+    var progress: CGFloat = 0.0 // valeur par défaut
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
