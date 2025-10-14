@@ -209,8 +209,15 @@ VStack {
 ```swift
 struct EcranStandard: View {
     var body: some View {
+        
         ZStack {
-            Color(.systemBackground).ignoresSafeArea()
+#if os(iOS)
+            Color(UIColor.systemBackground).ignoresSafeArea()
+#elseif os(macOS)
+            Color(NSColor.windowBackgroundColor).ignoresSafeArea()
+#endif
+            
+            //Color(UIColor.systemBackground).ignoresSafeArea()
             VStack(spacing: 16) {
                 HStack {
                     Image(systemName: "waveform.path.ecg")
@@ -251,6 +258,7 @@ struct EcranStandard: View {
         }
     }
 }
+
 ```
 ### B. Barre de progression
 ```swift
