@@ -282,9 +282,9 @@ struct ProgressBar: View {
 ### C. Carte d’info
 ```swift
 struct InfoCard: View {
-    let title: String
-    let subtitle: String
-    let systemIcon: String
+    let title: String = "Title"
+    let subtitle: String = "Subtitle"
+    let systemIcon: String = "arrow.2.circlepath.circle"
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: systemIcon)
