@@ -104,6 +104,11 @@ MorsePlayer/
 
 ---
 
+📚 Documentation complémentaire SwiftUI:
+- [Présenter une vue en Swift](./docs/PresentationVueSwiftUI.md)
+
+---
+
 🪪 Licence
 Ce projet est publié sous licence MIT — libre d’utilisation et de modification.
 
