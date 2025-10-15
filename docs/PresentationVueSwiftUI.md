@@ -183,13 +183,17 @@ GeometryReader { geo in
 
 ## 10) Safe area & fond plein écran
 ```swift
-ZStack {
-    Color(.systemGroupedBackground).ignoresSafeArea()
-    VStack {
-        Text("Contenu")
-        Spacer()
-    }
-}
+ ZStack {
+#if os(iOS)
+            Color(UIColor.systemBackground).ignoresSafeArea()
+#elseif os(macOS)
+            Color(NSColor.windowBackgroundColor).ignoresSafeArea()
+#endif
+                VStack {
+                    Text("Contenu")
+                    Spacer()
+            }
+        }
 ```
 ```swift
 VStack {
