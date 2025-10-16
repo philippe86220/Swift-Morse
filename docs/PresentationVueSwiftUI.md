@@ -173,7 +173,7 @@ List {
         Text("Mode sombre : Oui")
     }
 }
-.listStyle(.insetGrouped) // Style moderne sur iOS
+//.listStyle(.insetGrouped) // Style moderne sur iOS
 
 ```
 
