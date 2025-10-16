@@ -158,9 +158,11 @@ VStack(spacing: 16) {
 }
 .padding()
 ```
-List {...} en SwiftUI est une vue puissante servant à composer rapidement des interfaces utilisateurs  
-à lignes multiples , avec défilement, mise à jour automatique des données et  
-prise en charge native de l'interaction utilisateur :
+🧾 List { ... } en SwiftUI est une vue puissante pour composer rapidement des interfaces à lignes multiples :  
+défilement natif, mise à jour automatique des données, séparateurs, sections, gestes de swipe, etc.
+
+### A) Liste avec sections (statique)
+
 ```swift
 List {
     Section("Profil") { // En-tête + séparation automatique
@@ -171,20 +173,77 @@ List {
         Text("Mode sombre : Oui")
     }
 }
+.listStyle(.insetGrouped) // Style moderne sur iOS
+
 ```
+
+### B) Liste d’éléments (données simples)
+
+> id: \.self convient pour des String uniques.
+
 ```swift
 
-let items = ["Alice", "David", "Éric", "Fabien", "Guillaume", "Henri", "Isabelle", "Julien", "Kévin", "Léa", "Marc", "Nicolas", "Olivia", "Pierre", "Quentin", "Raoul", "Sophie", "Théo", "Ursule", "Victor", "William"]
-
 struct VuePrenoms: View {
-   var body: some View {
-     List ( items,  id: \.self) { item in
-       Text(item)
+    // On peut aussi rendre ce tableau global, mais le mettre ici rend la vue autonome
+    let items = [
+        "Alice","David","Éric","Fabien","Guillaume","Henri","Isabelle","Julien",
+        "Kévin","Léa","Marc","Nicolas","Olivia","Pierre","Quentin","Raoul",
+        "Sophie","Théo","Ursule","Victor","William"
+    ]
+
+    var body: some View {
+        List(items, id: \.self) { item in
+            Text(item)
+        }
+        .listStyle(.insetGrouped)
     }
-  }
+}
+
+```
+### C) Variante dynamique (suppression, insertion, rafraîchissement)
+
+> Utilise @State si la liste doit changer (supprimer/ajouter).
+
+
+```swift
+struct VuePrenomsDynamique: View {
+    @State private var items = [
+        "Alice","David","Éric","Fabien","Guillaume","Henri","Isabelle","Julien",
+        "Kévin","Léa","Marc","Nicolas","Olivia","Pierre","Quentin","Raoul",
+        "Sophie","Théo","Ursule","Victor","William"
+    ]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Prénoms") {
+                    ForEach(items, id: \.self) { item in
+                        Text(item)
+                    }
+                    .onDelete { indexSet in
+                        items.remove(atOffsets: indexSet)
+                    }
+                }
+            }
+            .navigationTitle("Contacts")
+            .toolbar {
+                EditButton() // Active le mode édition (supprimer/réordonner)
+                Button {
+                    // Exemple d’insertion
+                    items.insert("Nouveau", at: 0)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .refreshable {
+                // Pull to refresh (si données distantes)
+                await Task.sleep(NSEC_PER_SEC / 2) // simulé
+            }
+            .listStyle(.insetGrouped)
+        }
+    }
 }
 ```
-
 
 ## 9) GeometryReader
 ```swift
