@@ -195,7 +195,7 @@ struct VuePrenoms: View {
         List(items, id: \.self) { item in
             Text(item)
         }
-        .listStyle(.insetGrouped)
+        //.listStyle(.insetGrouped) // Style moderne sur iOS
     }
 }
 
