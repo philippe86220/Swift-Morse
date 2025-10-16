@@ -295,6 +295,19 @@ struct VuePrenomsDynamique: View {
 }
 
 ```
+### D) Astuces utiles
+- Où placer items ?  
+    - Statique → let items dans la vue (ou global), simple et lisible.  
+    - Modifiable → @State var items pour pouvoir supprimer/ajouter.  
+- Identifiants
+    - id: \.self suffit pour des String uniques.
+    - Pour des modèles, préfère struct Person: Identifiable { ... } puis ForEach(people) { person in ... }.
+- Styles
+    - iOS : .insetGrouped, .grouped, .plain, .sidebar (iPadOS).
+    - macOS : .inset, .sidebar (séparateurs visibles par défaut).
+- Personnalisation par cellule
+    - .listRowInsets(...), .listRowBackground(...), .swipeActions { ... }.
+
 
 ## 9) GeometryReader
 ```swift
