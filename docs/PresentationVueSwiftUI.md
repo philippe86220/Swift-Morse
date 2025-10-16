@@ -317,7 +317,7 @@ GeometryReader agit comme un conteneur spécial : il transmet à son contenu un 
 GeometryProxy contenant des informations sur la géométrie de son parent :
 - geometry.size → la taille disponible (largeur, hauteur)
 - geometry.frame(in: .local) ou .global → le cadre dans le repère local ou global
-- geometry.safeAreaInsets → les marges liées à la zone sûre (safe area)
+- geometry.safeAreaInsets → les marges liées à la zone sûre (safe area)  
 💡 Cela permet d’ajuster la mise en page en fonction des dimensions de l’écran ou du conteneur.
 
 ---
