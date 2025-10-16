@@ -206,6 +206,8 @@ struct VuePrenoms: View {
 
 
 ```swift
+import SwiftUI
+
 struct VuePrenomsDynamique: View {
     @State private var items = [
         "Alice","David","Éric","Fabien","Guillaume","Henri","Isabelle","Julien",
@@ -213,36 +215,85 @@ struct VuePrenomsDynamique: View {
         "Sophie","Théo","Ursule","Victor","William"
     ]
 
+    // macOS : sélection multiple pour supprimer depuis la toolbar
+    #if os(macOS)
+    @State private var selection = Set<String>()
+    #endif
+
     var body: some View {
         NavigationStack {
-            List {
-                Section("Prénoms") {
-                    ForEach(items, id: \.self) { item in
-                        Text(item)
-                    }
-                    .onDelete { indexSet in
-                        items.remove(atOffsets: indexSet)
-                    }
+            content
+                .navigationTitle("Contacts")
+                .toolbar { toolbarContent }
+                .refreshable {
+                    // nouvelle API non-dépréciée
+                    try? await Task.sleep(for: .milliseconds(500))
                 }
-            }
-            .navigationTitle("Contacts")
-            .toolbar {
-                EditButton() // Active le mode édition (supprimer/réordonner)
-                Button {
-                    // Exemple d’insertion
-                    items.insert("Nouveau", at: 0)
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-            .refreshable {
-                // Pull to refresh (si données distantes)
-                await Task.sleep(NSEC_PER_SEC / 2) // simulé
-            }
-             //.listStyle(.insetGrouped) // Style moderne sur iOS
         }
     }
+
+    @ViewBuilder
+    private var content: some View {
+        #if os(iOS)
+        // iOS : Section + onDelete classique
+        List {
+            Section("Prénoms") {
+                ForEach(items, id: \.self) { item in
+                    Text(item)
+                }
+                .onDelete { indexSet in
+                    items.remove(atOffsets: indexSet)
+                }
+            }
+        }
+        //.listStyle(.insetGrouped) // si tu veux le style iOS moderne
+        #elseif os(macOS)
+        // macOS : List avec sélection; suppression via toolbar
+        List(selection: $selection) {
+            Section("Prénoms") {
+                ForEach(items, id: \.self) { item in
+                    Text(item)
+                }
+            }
+        }
+        .environment(\.defaultMinListRowHeight, 26) // optionnel : rangées un peu plus compactes
+        .listStyle(.inset) // style adapté macOS
+        #endif
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        #if os(iOS)
+        ToolbarItemGroup(placement: .topBarTrailing) {
+            EditButton() // iOS uniquement
+            Button {
+                items.insert("Nouveau", at: 0)
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+        #elseif os(macOS)
+        ToolbarItemGroup(placement: .automatic) {
+            Button {
+                items.insert("Nouveau", at: 0)
+            } label: {
+                Label("Ajouter", systemImage: "plus")
+            }
+
+            Button(role: .destructive) {
+                withAnimation {
+                    items.removeAll { selection.contains($0) }
+                    selection.removeAll()
+                }
+            } label: {
+                Label("Supprimer", systemImage: "trash")
+            }
+            .disabled(selection.isEmpty)
+        }
+        #endif
+    }
 }
+
 ```
 
 ## 9) GeometryReader
