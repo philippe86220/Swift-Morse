@@ -239,7 +239,7 @@ struct VuePrenomsDynamique: View {
                 // Pull to refresh (si données distantes)
                 await Task.sleep(NSEC_PER_SEC / 2) // simulé
             }
-            .listStyle(.insetGrouped)
+             //.listStyle(.insetGrouped) // Style moderne sur iOS
         }
     }
 }
