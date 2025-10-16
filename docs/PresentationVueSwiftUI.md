@@ -145,7 +145,7 @@ HStack(alignment: .firstTextBaseline) { // Aligne la première ligne de texte
 }
 ```
 
-## 8) Divider, Group, Section
+## 8) Divider, Group, Section, List
 ```swift
 VStack(spacing: 16) {
     Text("Informations").font(.headline)
@@ -158,6 +158,9 @@ VStack(spacing: 16) {
 }
 .padding()
 ```
+List {...} en SwiftUI est une vue puissante servant à composer rapidement des interfaces utilisateurs  
+à lignes multiples , avec défilement, mise à jour automatique des données et  
+prise en charge native de l'interaction utilisateur :
 ```swift
 List {
     Section("Profil") { // En-tête + séparation automatique
@@ -169,6 +172,19 @@ List {
     }
 }
 ```
+```swift
+
+let items = ["Alice", "David", "Éric", "Fabien", "Guillaume", "Henri", "Isabelle", "Julien", "Kévin", "Léa", "Marc", "Nicolas", "Olivia", "Pierre", "Quentin", "Raoul", "Sophie", "Théo", "Ursule", "Victor", "William"]
+
+struct VuePrenoms: View {
+   var body: some View {
+     List ( items,  id: \.self) { item in
+       Text(item)
+    }
+  }
+}
+```
+
 
 ## 9) GeometryReader
 ```swift
