@@ -310,17 +310,64 @@ struct VuePrenomsDynamique: View {
 
 
 ## 9) GeometryReader
+En SwiftUI, GeometryReader est une vue conteneur qui permet d’accéder à la taille et à la position de la vue parente.
+Elle sert à créer des interfaces adaptatives ou à positionner des éléments de façon proportionnelle et dynamique.
+🧩 Rôle et principe
+GeometryReader agit comme un conteneur spécial : il transmet à son contenu un objet GeometryProxy contenant des informations sur la géométrie de son parent :
+geometry.size → la taille disponible (largeur, hauteur)
+geometry.frame(in: .local) ou .global → le cadre dans le repère local ou global
+geometry.safeAreaInsets → les marges liées à la zone sûre (safe area)
+💡 Cela permet d’ajuster la mise en page en fonction des dimensions de l’écran ou du conteneur.
+
+---
+✳️ Exemple simple : centrer un texte dans sa vue parente :
 ```swift
-GeometryReader { geo in // Fournit la taille disponible (geo.size)
-    VStack {
-        Text("Largeur: \(Int(geo.size.width))") // Debug utile
-        RoundedRectangle(cornerRadius: 12)
-            .frame(width: geo.size.width * 0.8, height: 12) // 80% de la largeur
-    }
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top) // Remplir + placer en haut
-    .padding()
-} // ⚠️ À utiliser avec parcimonie (peut casser certaines mises en page)
+GeometryReader { geometry in
+    Text("Bonjour SwiftUI")
+        .position(
+            x: geometry.size.width / 2,
+            y: geometry.size.height / 2
+        )
+}
 ```
+Ici :
+- geometry.size.width → largeur totale disponible,
+- geometry.size.height → hauteur totale disponible.
+On place le texte au centre en divisant ces valeurs par 2.
+
+⚙️ Exemple pratique : redimensionner un élément proportionnellement :
+```swift
+GeometryReader { geo in
+    VStack {
+        Text("Largeur : \(Int(geo.size.width))")
+            .font(.headline)
+        RoundedRectangle(cornerRadius: 12)
+            .frame(width: geo.size.width * 0.8, height: 12)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    .padding()
+}
+```
+➡️ Le rectangle s’adapte automatiquement à 80 % de la largeur disponible.
+
+---
+🎯 Cas d’usage typiques
+- Créer des mises en page proportionnelles (par ex. un graphique ou une jauge).
+- Aligner ou centrer précisément un élément dans un conteneur.
+- Construire des interfaces réactives à la taille de la fenêtre ou de l’écran.
+- Dessiner des formes ou animations dépendant de la géométrie parentale.
+---
+⚠️ Bonnes pratiques
+- GeometryReader influence la hiérarchie des vues : il occupe tout l’espace disponible.
+- Il faut donc l’utiliser de manière ciblée, pour calculer des tailles ou positions,
+  pas pour construire toute la mise en page.
+- Pour des structures courantes (HStack, VStack, ZStack), préfère les outils standards.
+
+---
+ 🧠 En résumé
+> GeometryReader est un conteneur qui expose la géométrie de son parent via un proxy.  
+> Il est idéal pour créer des interfaces réactives ou proportionnelles,   
+> en adaptant les éléments à la taille de leur environnement.
 
 ## 10) Safe area & fond plein écran
 ```swift
