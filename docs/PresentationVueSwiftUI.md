@@ -399,6 +399,81 @@ VStack {
         .foregroundStyle(.white)
 }
 ```
+## 🟦 10 bis) Remplir tout l’écran avec une couleur
+Pour colorer le fond de tout l’écran, il est préférable d’utiliser un ZStack :  
+Le Color placé en premier sert alors de fond couvrant toute la zone visible.  
+
+```swift
+ZStack {
+    Color.blue
+        .ignoresSafeArea() // Étend la couleur sous les zones sûres (encoche, barre)
+    
+    VStack {
+        Text("Écran complet coloré en bleu")
+            .font(.title)
+            .foregroundColor(.white)
+    }
+}
+```
+💡 Explication :
+- Le ZStack empile les vues verticalement dans la profondeur.
+- En plaçant Color avant tout autre élément, il devient le fond de l’écran.
+- .ignoresSafeArea() permet d’étendre la couleur sous les barres système.
+
+🎨 Créer une couleur personnalisée  
+On peut créer une couleur à partir de valeurs RGB :  
+
+```swift
+Color(red: 0.2, green: 0.6, blue: 0.9)
+```
+Ou définir une couleur réutilisable grâce à une extension :
+
+```swift
+extension Color {
+    static let monBleu = Color(red: 0.15, green: 0.45, blue: 0.75)
+}
+```
+
+Et l’utiliser comme ceci :
+```swift
+Text("Mon texte")
+    .background(Color.monBleu)
+
+```
+---
+🧩 Exemple complet
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        ZStack {
+            Color.monBleu
+                .ignoresSafeArea() // Étend la couleur sur tout l’écran
+            
+            VStack {
+                Text("Écran complet coloré en bleu")
+                    .font(.title)
+                    .foregroundColor(.white)
+            }
+        }
+    }
+}
+
+extension Color {
+    static let monBleu = Color(red: 0.15, green: 0.45, blue: 0.75)
+}
+
+```
+---
+✅ En résumé :  
+- Pour un fond couvrant tout l’écran :
+- place Color en premier dans un ZStack,
+- ajoute .ignoresSafeArea(),
+- et crée tes propres couleurs via extension Color.
+
+
+
 
 ## 11) Exemples complets (annotés)
 ### A. Écran standard
