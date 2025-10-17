@@ -385,6 +385,8 @@ ZStack {
     }
 }
 ```
+---
+
 ```swift
 VStack {
     Text("Contenu")
