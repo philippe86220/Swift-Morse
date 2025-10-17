@@ -502,7 +502,7 @@ struct InfoCard: View {
 }
 ```
 
-## 12) Cheat-sheet
+## 12) Aide-mémoire
 | Objectif | Outil |
 |-----------|-------|
 | Mettre à la ligne / colonne | `HStack` / `VStack` (+ `spacing`) |
